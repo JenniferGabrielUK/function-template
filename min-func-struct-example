@@ -19,6 +19,24 @@ struct Person {
     }
 };
 
+std::ostream& operator <<(std::ostream& os, const Person& p) {
+    os << "Name: " << p.name << " & age: " << p.age;
+    return os;
+}
+
+template <typename T>
+void my_swap(T& a, T& b) {
+    T temp = a;
+    a = b;
+    b = temp;
+}
+//void my_swap(int& a, int& b) {  //this is the function if only using integers, which I used to develop the
+//    int temp = a;               //template function above
+//    a = b;
+//    b = temp;
+//}
+
+
 int main()
 {
     Person p1{ "Jenny", 50 };
@@ -42,6 +60,18 @@ int main()
     func('A', 12.5);
     func(1000, "Testing");
     func(2000, std::string{ "Jenny" });
-    
+    func(p1, p2); // the overload << operator allows func to be passed a Person struct
+
+    int x{ 100 };
+    int y{ 200 };
+    my_swap(x, y);
+    std::cout << x << ", " << y << std::endl;
+    std::string name1 {"Jenny"};
+    std::string name2{ "Sam" };
+    my_swap(name1, name2);
+    std::cout << name1 << ", " << name2 << std::endl; //Sam, Jenny
+    my_swap(name1, name2);
+    std::cout << name1 << ", " << name2 << std::endl; //Jenny, Sam
+
     return 0;
 }
